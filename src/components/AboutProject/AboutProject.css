@@ -1,0 +1,70 @@
+.about-project {
+    min-height: 608px;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-project__title {
+    margin: 0;
+    margin-left: 70px;
+    padding-top: 110px;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26px;
+}
+
+.about-project__description {
+    margin: 23px 70px 0 70px;
+    padding-top: 70px;
+    border-top: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+    row-gap: 26px;
+}
+
+.about-project__description-title {
+    width: 550px;
+    margin: 0;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.about-project__description-subtitle {
+    width: 550px;
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.about-project__chatr {
+    margin: 110px 70px 0 70px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    row-gap: 14px;
+}
+
+.about-project__chatr-timeline {
+    margin: 0;
+    padding: 9px 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    background-color: #2BE080;
+}
+
+.about-project__chatr-timeline_front {
+    background-color: #F2F2F2;
+}
+
+.about-project__chatr-description {
+    margin: 0;
+    padding: 0;
+    color: #A0A0A0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+}
