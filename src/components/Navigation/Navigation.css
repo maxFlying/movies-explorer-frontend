@@ -84,6 +84,18 @@
 
 .navigation__burger {
     display: none;
+    width: 44px;
+    height: 44px;
+    background-image: url(../../images/burger-menu-icon.svg);
+    background-position: center;
+    border: none;
+    padding: none;
+    background-color: white;
+}
+
+.navigation__burger:hover {
+    cursor: pointer;
+    opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {
@@ -92,15 +104,7 @@
     }
 
     .navigation__burger {
-        display: flex;
-        width: 68%;
-        height: 100%;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        background-color: white;
-        z-index: 2;
-        border: 5px solid black;
+        display: block;
     }
 }
 

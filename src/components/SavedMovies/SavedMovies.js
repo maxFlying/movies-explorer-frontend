@@ -5,10 +5,10 @@ import SearchForm from '../Movies/SearchForm/SearchForm';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-function SavedMovies() {
+function SavedMovies(props) {
     return (
         <page>
-            <Header/>
+            <Header openBurger={props.openBurger}/>
             <main className='saved-movies'>
                 <SearchForm />
                 <MoviesCardList isSaved={true}/>

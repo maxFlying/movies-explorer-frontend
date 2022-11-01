@@ -7,7 +7,7 @@ function Header(props) {
     return (
         <header className={`header ${props.HeaderBackground}`}>
             <Link to='/' className='header__logo'/>
-            <Navigation />
+            <Navigation openBurger={props.openBurger}/>
         </header>
     );
 }

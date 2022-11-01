@@ -2,12 +2,12 @@ import React from 'react';
 import Header from '../Header/Header';
 import './Profile.css';
 
-function Profile() {
+function Profile(props) {
     const UserName = 'Ясон'
     const UserEmail = 'cat@yandex.ru'
     return (
         <page>
-            <Header />
+            <Header openBurger={props.openBurger}/>
             <main className='profile'>
                 <h1 className='profile__title'>Привет, {UserName}!</h1>
                 <div className='profile__info'>

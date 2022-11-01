@@ -3,7 +3,7 @@ import { Link, NavLink, Route, Switch } from 'react-router-dom';
 import './Navigation.css';
 import AccountLogo from '../../images/account-icon.svg'
 
-function Navigation() {
+function Navigation(prors) {
     return (
         <Switch>
             <Route exact path='/'>
@@ -22,7 +22,7 @@ function Navigation() {
                         <NavLink to='/profile' className='navigation__account-link' activeClassName='navigation__link_is-active'>Аккаунт<img src={AccountLogo} className='account__logo' alt=''/></NavLink>
                     </nav>
                 </div>
-                <div className='navigation__burger'></div>
+                <button onClick={prors.openBurger} className='navigation__burger'></button>
             </Route>
         </Switch>
     );
