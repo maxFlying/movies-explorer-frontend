@@ -19,7 +19,7 @@ function MoviesCard(props) {
                 <p className='movie__duration'>27 минут</p>
             </div>
             <img className='movie__poster' src={MoviePoster} alt='Обложка к фильму'/>
-            <button className={movieButtonClassName} type='submit'>{MovieButtonDescription}</button>
+            <button className={movieButtonClassName} type='button'>{MovieButtonDescription}</button>
         </div>
     );
 }

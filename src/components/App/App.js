@@ -9,11 +9,10 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFoundError from '../NotFoundError/NotFoundError';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
-import Navigation from '../Navigation/Navigation'
 
 function App() {
 
-    const [isBurgerMenu, setIsBurgerMenu] = React.useState(true);
+    const [isBurgerMenu, setIsBurgerMenu] = React.useState(false);
 
     const openBurger = () => {
         setIsBurgerMenu(true);
@@ -25,7 +24,7 @@ function App() {
     
 
     return (   
-        <div className="app">
+        <>
             <Switch>
                 <Route exact path="/">
                     <Main />
@@ -49,9 +48,8 @@ function App() {
                     <NotFoundError />
                 </Route>
             </Switch>
-            <Navigation />
             <BurgerMenu isOpen={isBurgerMenu} closeBurger={closeBurger}/>
-        </div>
+        </>
   );
 }
 

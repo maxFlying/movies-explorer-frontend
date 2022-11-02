@@ -10,14 +10,14 @@ function Profile(props) {
             <Header openBurger={props.openBurger}/>
             <main className='profile'>
                 <h1 className='profile__title'>Привет, {UserName}!</h1>
-                <div className='profile__info'>
+                <section className='profile__info'>
                     <p className='profile__info-field'>Имя</p>
                     <p className='profile__info-value'>{UserName}</p>
-                </div>
-                <div className='profile__info'>
+                </section>
+                <section className='profile__info'>
                     <p className='profile__info-field'>E-mail</p>
                     <p className='profile__info-value'>{UserEmail}</p>
-                </div>
+                </section>
                 <button className='profile__button-edit'>Редактировать</button>
                 <button className='profile__button-exit'>Выйти из аккаунта</button>
             </main>

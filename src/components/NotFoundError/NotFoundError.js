@@ -6,11 +6,11 @@ function NotFoundError() {
     const history = useHistory();
 
     return (
-        <page className='not-found'>
+        <main className='not-found'>
             <h1 className='not-found__title'>404</h1>
             <p className='not-found__description'>Страница не найдена</p>
             <button onClick={history.goBack} className='not-found__button'>Назад</button>
-        </page>
+        </main>
     );
 }
   
