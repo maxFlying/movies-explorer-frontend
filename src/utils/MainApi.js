@@ -102,7 +102,7 @@ class MainApi {
 }
  
 const mainApi = new MainApi({
-    url: 'http://localhost:6688',
+    url: 'https://api.maxflying.diploma.nomoredomains.icu',
     headers: {
         'Content-Type': 'application/json',
     }
