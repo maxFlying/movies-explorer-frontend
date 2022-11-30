@@ -118,7 +118,7 @@ function App() {
 
     const onLogout = () => {
         setLoggedIn(false);
-        // localStorage.removeItem('jwt');
+        localStorage.removeItem('jwt');  
         localStorage.removeItem('isAuth');
         history.push('/');
     };

@@ -16,9 +16,9 @@ function Movies(props) {
     const [searchInfo, setSearchInfo] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(false);
     
-    const storageAllMovies = JSON.parse(localStorage.getItem('allMovies'));
-    const storageFilteredMovies = JSON.parse(localStorage.getItem('filteredMovies'));
-    const storageFilteredShortMovies = JSON.parse(localStorage.getItem('filteredShortMovie'));
+    const storageAllMovies = JSON.parse(localStorage.getItem('allMovies') ?? '[]');
+    const storageFilteredMovies = JSON.parse(localStorage.getItem('filteredMovies')?? '[]');
+    const storageFilteredShortMovies = JSON.parse(localStorage.getItem('filteredShortMovie')?? '[]');
     
     const getAllMovies = () => {
         setIsLoading(true)
