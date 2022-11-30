@@ -18,8 +18,8 @@ function Movies(props) {
     
     const storageAllMovies = JSON.parse(localStorage.getItem('allMovies'));
     const storageFilteredMovies = JSON.parse(localStorage.getItem('filteredMovies'));
-    const storageFilteredShortMovies = storageFilteredMovies.filter((item) => item.duration < 40);
-
+    const storageFilteredShortMovies = JSON.parse(localStorage.getItem('filteredShortMovie'));
+    
     const getAllMovies = () => {
         setIsLoading(true)
         moviesApi
@@ -43,7 +43,8 @@ function Movies(props) {
         })
         localStorage.setItem('filteredMovies', JSON.stringify(filter));
         const storageFilteredMovies = JSON.parse(localStorage.getItem('filteredMovies'));
-        const storageFilteredShortMovies = storageFilteredMovies.filter((item) => item.duration < 40);
+        const filterShortMovie = storageFilteredMovies.filter((item) => item.duration < 40);
+        localStorage.setItem('filteredShortMovie', JSON.stringify(filterShortMovie))
         if(!isCheckbox) {
             setFilteredMovies(storageFilteredShortMovies);
         } else{
