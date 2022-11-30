@@ -23,7 +23,6 @@ function SavedMovies(props) {
             return item.nameRU.toLowerCase().includes(searchValue.nameRU.toLowerCase());
         })
         if(!isCheckbox) {
-            console.log(isCheckbox)
             const storageFilteredShortUserMovies = filterUser.filter((item) => item.duration < 40);
             setFilteredUserMovies(storageFilteredShortUserMovies);
         } else {
