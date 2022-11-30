@@ -2,4 +2,4 @@
 
 [Деплой](https://maxflying.diploma.nomoredomains.icu)
 
-[ПуллРеквест]
+[ПуллРеквест](https://github.com/maxFlying/movies-explorer-frontend/pull/2)
