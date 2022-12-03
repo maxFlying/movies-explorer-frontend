@@ -6,9 +6,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 function SavedMovies(props) {
-    const [searchValue, setSearchValue] = React.useState({
-        nameRU: '',
-    });
+    const [serchSavedMoviesValue, setSerchSavedMoviesValue] = React.useState('');
     const [filteredUserMovies, setFilteredUserMovies] = React.useState(props.userMovies);
     const [isCheckbox, setIsCheckbox] = React.useState(false);
     const [searchInfo, setSearchInfo] = React.useState('');
@@ -18,17 +16,20 @@ function SavedMovies(props) {
     }, [props.userMovies]);
 
     const searchUserMovie = (value) => {
-        setSearchValue(value);
+        setSerchSavedMoviesValue(value);
+    };
+
+    React.useEffect(() => {
         const filterUser = props.userMovies.filter((item) => {
-            return item.nameRU.toLowerCase().includes(searchValue.nameRU.toLowerCase());
-        })
-        if(!isCheckbox) {
+            return item.nameRU.toLowerCase().includes(serchSavedMoviesValue.toLowerCase());
+        });
+        if(isCheckbox) {
             const storageFilteredShortUserMovies = filterUser.filter((item) => item.duration < 40);
             setFilteredUserMovies(storageFilteredShortUserMovies);
         } else {
             setFilteredUserMovies(filterUser);
         }
-    }
+    }, [isCheckbox, props.userMovies, serchSavedMoviesValue])
 
     React.useEffect(() => {
         if(filteredUserMovies.length === 0) {
@@ -42,15 +43,14 @@ function SavedMovies(props) {
         <>
             <Header openBurger={props.openBurger} loggedIn={props.loggedIn}/>
             <main className='saved-movies'>
-                <SearchForm searchValue={searchValue}
-                setSearchValue={setSearchValue}
+                <SearchForm
                 searchUserMovie={searchUserMovie}
                 setIsCheckbox={setIsCheckbox}
                 isCheckbox={isCheckbox}
                 />
                 <MoviesCardList isSaved={true} 
                 filteredUserMovies={filteredUserMovies} 
-                filteredMovies={filteredUserMovies} 
+                filteredMovies={filteredUserMovies}
                 userMovies={props.userMovies} 
                 handleMovieDelete={props.handleMovieDelete}
                 searchInfo={searchInfo}/>

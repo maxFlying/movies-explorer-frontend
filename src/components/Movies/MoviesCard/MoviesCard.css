@@ -25,6 +25,7 @@
 }
 
 .movie__duration {
+    width: 70px;
     margin: 0;
     margin-left: 12px;
     font-size: 13px;

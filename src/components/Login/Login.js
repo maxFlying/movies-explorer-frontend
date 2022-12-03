@@ -14,9 +14,9 @@ function Login(props) {
     const {
         register,
         formState: { errors, isValid },
-        handleSubmit
+        handleSubmit,
     } = useForm({
-        mode: 'onBlur'
+        mode: 'onBlur',
     });
     
     const handleChange = (evt) => {
@@ -53,14 +53,14 @@ function Login(props) {
                         message: 'Неверный формат email'
                     }
                 })}
-                onChange={handleChange} value={loginData.email} className='login__input' type='email' name='email'/>
+                onChange={handleChange} value={loginData.email} className='login__input' type='email' name='email' disabled={props.isLoading}/>
                 <span className='register__error'>{errors?.email && errors?.email.message}</span>
                 <label className='login__label'>Пароль</label>
                 <input 
                 {...register('password', {
                     required: 'Пожалуйста, введите Ваш пароль',
                 })}
-                onChange={handleChange} value={loginData.password} className='login__input' type='password' name='password'/>
+                onChange={handleChange} value={loginData.password} className='login__input' type='password' name='password' disabled={props.isLoading}/>
                 <span className='register__error'>{errors?.password && errors?.password.message}</span>
                 <span className='login__submit-error'>{toggleError(props.error)}</span>
                 <button className='login__button' type='submit' disabled={!isValid}>Войти</button>

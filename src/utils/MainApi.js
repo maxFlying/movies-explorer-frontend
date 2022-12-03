@@ -37,6 +37,15 @@ class MainApi {
         .then(this._checkServerResponse);
     };
 
+    logout() {
+        return fetch(`${this._url}/signout`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: this._headers,
+        })
+        .then(this._checkServerResponse);
+    };
+
     getUserInfo() {
         return fetch(`${this._url}/users/me`, {
             method: 'GET',
@@ -102,7 +111,7 @@ class MainApi {
 }
  
 const mainApi = new MainApi({
-    url: 'https://api.maxflying.diploma.nomoredomains.icu',
+    url: 'http://localhost:6688',
     headers: {
         'Content-Type': 'application/json',
     }

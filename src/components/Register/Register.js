@@ -63,7 +63,7 @@ function Register(props) {
                         message: 'Недопустимо импользование спецсимволов'
                     }
                 })}
-                name='name' type='text' className='register__input' onChange={handleChange} value={registerData.name}/>
+                name='name' type='text' className='register__input' onChange={handleChange} value={registerData.name} disabled={props.isLoading}/>
                 <span className='register__error'>{errors?.name && errors?.name.message}</span>
                 <label className='register__label'>E-mail</label>
                 <input 
@@ -74,7 +74,7 @@ function Register(props) {
                         message: 'Неверный формат email'
                     }
                 })}
-                name='email' type='email' className='register__input' onChange={handleChange} value={registerData.email}/>
+                name='email' type='email' className='register__input' onChange={handleChange} value={registerData.email} disabled={props.isLoading}/>
                 <span className='register__error'>{errors?.email && errors?.email.message}</span>
                 <label className='register__label'>Пароль</label>
                 <input 
@@ -85,7 +85,7 @@ function Register(props) {
                         message: 'Допускаются строчные и прописные латинские буквы, цифры'
                     }
                 })}
-                name='password' type='password' className='register__input' onChange={handleChange} value={registerData.password}/>
+                name='password' type='password' className='register__input' onChange={handleChange} value={registerData.password} disabled={props.isLoading}/>
                 <span className='register__error'>{errors?.password && errors?.password.message}</span>
                 <span className='register__submit-error'>{toggleError(props.error)}</span>
                 <button className='register__button' type='submit' disabled={!isValid}>Зарегистрироваться</button>

@@ -13,10 +13,22 @@ function Profile(props) {
     const {
         register,
         formState: { errors, isValid },
-        handleSubmit
+        handleSubmit,
+        watch
     } = useForm({
         mode: 'onBlur'
     });
+
+    // console.log(watch('name'))
+    const disabledButton = () => {
+        if(isValid) {
+            return false 
+        } else if ((watch('name') === name || watch('email') === email)) {
+            return false
+        } else {
+            return true;
+        }
+    }
 
     const handleChangeName = (evt) => {
         setName(evt.target.value);
@@ -71,7 +83,7 @@ function Profile(props) {
                                     message: 'Недопустимо импользование спецсимволов'
                                 }
                             })}
-                            name='name' className='profile__info-value' onChange={handleChangeName} value={name || ''}></input>
+                            name='name' className='profile__info-value' onChange={handleChangeName} value={name || ''} disabled={props.isLoading}></input>
                         </div>
                         <span className='profile__error'>{errors?.name && errors?.name.message}</span>
                         <div className='profile__info'>
@@ -83,12 +95,12 @@ function Profile(props) {
                                     message: 'Неверный формат email'
                                 }
                             })}
-                            name='email' className='profile__info-value' onChange={handleChangeDescription} value={email || ''}></input>
+                            name='email' className='profile__info-value' onChange={handleChangeDescription} value={email || ''} disabled={props.isLoading}></input>
                         </div>
                         <span className='profile__error'>{errors?.email && errors?.email.message}</span>
                     </section>
                     <span className='profile__error-edit'>{props.response ? 'Успешно!' : toggleError(props.error)}</span>
-                    <button className='profile__button-edit' type='submit' disabled={!isValid}>Редактировать</button>
+                    <button className='profile__button-edit' type='submit' disabled={disabledButton()}>Редактировать</button>
                     <button onClick={props.onLogout} className='profile__button-exit'>Выйти из аккаунта</button>
                 </form>
             </main>

@@ -4,8 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 
 function MoviesCard({ movie, isSaved, toggleCardStatus, handleMovieDelete, userMovies}) {
 
-    const searchingMoviePoster = `https://api.nomoreparties.co${movie.image.url}`
-    const savedMoviePoster = `${movie.image}`
+    const searchingMoviePoster = `https://api.nomoreparties.co${movie.image.url}`;
+    const savedMoviePoster = `${movie.image}`;
     const isLiked = userMovies.some((i) => i.movieId === movie.id);
 
     const movieButtonClassName = `movie__button ${
@@ -18,11 +18,22 @@ function MoviesCard({ movie, isSaved, toggleCardStatus, handleMovieDelete, userM
 
     const toggleClickLike = () => {
         toggleCardStatus(movie)
+        console.log(movie)
     };
 
     const toggleClickDel = () => {
         console.log(movie)
         handleMovieDelete(movie)
+    };
+
+    function getTimeFromMins(mins) {
+        let hours = Math.trunc(mins/60);
+        let minutes = mins % 60;
+        if(hours === 0){
+            return `${minutes} минут`;
+        } else {
+            return `${hours}ч ${minutes}м`;
+        }
     };
 
     return (
@@ -31,9 +42,11 @@ function MoviesCard({ movie, isSaved, toggleCardStatus, handleMovieDelete, userM
                 <div className='movie'>
                     <div className='movie__about-container'>
                         <h3 className='movie__title'>{movie.nameRU}</h3>
-                        <p className='movie__duration'>{`${movie.duration} мин.`}</p>
+                        <p className='movie__duration'>{getTimeFromMins(movie.duration)}</p>
                     </div>
-                    <img className='movie__poster' src={searchingMoviePoster} alt='Обложка к фильму'/>
+                    <a href={movie.trailerLink} className='movie__trailer' target='_blank' rel="noreferrer">
+                        <img className='movie__poster' src={searchingMoviePoster} alt='Обложка к фильму'/>
+                    </a>
                     <button onClick={toggleClickLike} className={movieButtonClassName} type='button'>{MovieButtonDescription}</button>
                 </div>
             </Route>
@@ -43,7 +56,9 @@ function MoviesCard({ movie, isSaved, toggleCardStatus, handleMovieDelete, userM
                         <h3 className='movie__title'>{movie.nameRU}</h3>
                         <p className='movie__duration'>{`${movie.duration} мин.`}</p>
                     </div>
-                    <img className='movie__poster' src={savedMoviePoster} alt='Обложка к фильму'/>
+                    <a href={movie.trailerLink} className='movie__trailer' target='_blank' rel="noreferrer">
+                        <img className='movie__poster' src={savedMoviePoster} alt='Обложка к фильму'/>
+                    </a>
                     <button onClick={toggleClickDel} className={movieButtonClassName} type='button'>{MovieButtonDescription}</button>
                 </div>
             </Route>

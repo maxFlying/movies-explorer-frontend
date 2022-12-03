@@ -2,6 +2,14 @@ import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 import { Switch, Route } from 'react-router-dom';
+import { desktopScreen,
+    tabletScreen,
+    desktopQuantityMovies,
+    tabletQuantityMovies,
+    mobileQuantityMovies,
+    desktopQuantityMoreMovies,
+    mobileAndTabletQuantityMoreMovies
+} from '../../../utils/config';
 
 function MoviesCardList(props) {
     const [innerWidth, setInnerWidth] = React.useState('');
@@ -9,25 +17,29 @@ function MoviesCardList(props) {
     const [quantityMoreMovies, setQuantityMoreMovies] = React.useState('');
     const [finalMoviesArray, setFinalMoviesArray] = React.useState([]);
     const [isActiveButtonMore, setIsActiveButtonMore] = React.useState(false);
-    
+
     const buttonMoreClass = `movies__button-more ${
         isActiveButtonMore === false ? 'movies__button-more_is-unactive' : ''
-    }`;
+    }`
 
     React.useEffect(() => {
-        window.addEventListener('resize', setInnerWidth(document.documentElement.clientWidth))
+        window.addEventListener('resize', () => setInnerWidth(document.documentElement.clientWidth));
     }, [])
 
+    window.onresize = setTimeout(() => {
+        setInnerWidth(document.documentElement.clientWidth)
+    }, 1000);
+
     const calcQuantityMovies = (width) => {
-        if(width > 965) {
-            setQuantityMovies(12);
-            setQuantityMoreMovies(3);
-        } else if (width < 965 && width > 550) {
-            setQuantityMovies(8);
-            setQuantityMoreMovies(2);
-        } else if (width < 550) {
-            setQuantityMovies(5);
-            setQuantityMoreMovies(2);
+        if(width > desktopScreen) {
+            setQuantityMovies(desktopQuantityMovies);
+            setQuantityMoreMovies(desktopQuantityMoreMovies);
+        } else if (width < desktopScreen && width > tabletScreen) {
+            setQuantityMovies(tabletQuantityMovies);
+            setQuantityMoreMovies(mobileAndTabletQuantityMoreMovies);
+        } else if (width < tabletScreen) {
+            setQuantityMovies(mobileQuantityMovies);
+            setQuantityMoreMovies(mobileAndTabletQuantityMoreMovies);
         }
     }
 
@@ -75,7 +87,7 @@ function MoviesCardList(props) {
             <Route path='/saved-movies'>
             <section className='movies__result'>
                     <div className='movies-grid'>
-                        {finalMoviesArray.map((movie) => (
+                        {props.filteredMovies.map((movie) => (
                             <MoviesCard
                                 key={movie.id || movie.movieId}
                                 movie={movie}
@@ -91,8 +103,6 @@ function MoviesCardList(props) {
                 </section>
             </Route>
         </Switch>
-
-        
     );
 };
   

@@ -12,6 +12,8 @@ import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import mainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ProtectedRouteIsAuth from '../ProtectedRoute/ProtectedRouteIsAuth';
+
 
 function App() {
 
@@ -22,6 +24,7 @@ function App() {
     const [loggedIn, setLoggedIn] = React.useState(false);
     const [error, serError] = React.useState('');
     const [response, setResponse] = React.useState(null);
+    const [isLoading, setIsloading] = React.useState(false);
     
     const isAuth = localStorage.getItem('isAuth');
 
@@ -64,7 +67,6 @@ function App() {
     }, [loggedIn]);
 
     const checKToken = () => {
-        // const jwt = localStorage.getItem('jwt');
         if (!isAuth) {
             history.push('/')
             return;
@@ -79,6 +81,12 @@ function App() {
         .catch((err) => {
             localStorage.removeItem('isAuth');
             history.push('/')
+            localStorage.removeItem('jwt');  
+            localStorage.removeItem('checkbox');
+            localStorage.removeItem('allMovies');
+            localStorage.removeItem('filteredMovies');
+            localStorage.removeItem('filteredShortMovie');
+            localStorage.removeItem('inputValue');
             console.log(err);
         })
     }
@@ -89,10 +97,10 @@ function App() {
     }, []);
 
     const onLogin = (data) => {
+        setIsloading(true);
         return mainApi
             .authorize(data)
             .then((res) => {
-                // localStorage.setItem('jwt', res.token);
                 localStorage.setItem('isAuth', true);
                 checKToken();
                 setLoggedIn(true);
@@ -102,9 +110,13 @@ function App() {
                 console.log(err);
                 serError(err);
             })
+            .finally(() => {
+                setIsloading(false);
+            });
     }
     
     const onRegister = (data) => {
+        setIsloading(true);
         return mainApi
             .register(data)
             .then(() => {
@@ -113,17 +125,34 @@ function App() {
             .catch((err) => {
                 console.log(err);
                 serError(err);
+            })
+            .finally(() => {
+                setIsloading(false);
             });
     }
 
     const onLogout = () => {
-        setLoggedIn(false);
-        localStorage.removeItem('jwt');  
-        localStorage.removeItem('isAuth');
-        history.push('/');
+        return mainApi
+            .logout()
+            .then(() => {
+                setLoggedIn(false);
+                localStorage.removeItem('jwr');  
+                localStorage.removeItem('isAuth');
+                localStorage.removeItem('checkbox');
+                localStorage.removeItem('allMovies');
+                localStorage.removeItem('filteredMovies');
+                localStorage.removeItem('filteredShortMovie');
+                localStorage.removeItem('inputValue');
+                history.push('/');
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        
     };
 
     const handleUpdateUser = (data) => {
+        setIsloading(true);
         return mainApi
             .editUserInfo(data)
             .then((res) => {
@@ -134,6 +163,9 @@ function App() {
                 console.log(err);
                 setResponse(false);
                 serError(err);
+            })
+            .finally(() => {
+                setIsloading(false);
             });
     };
 
@@ -191,12 +223,22 @@ function App() {
                     <Route exact path="/">
                         <Main loggedIn={loggedIn}/>
                     </Route>
-                    <Route exact path="/signup">
-                        <Register onRegister={onRegister} error={error}/>
-                    </Route>
-                    <Route exact path="/signin">
-                        <Login onLogin={onLogin} error={error}/>
-                    </Route>
+                    <ProtectedRouteIsAuth
+                        exact path="/signup"
+                        component={Register}
+                        onRegister={onRegister}
+                        error={error}
+                        isAuth={isAuth}
+                        isLoading={isLoading}
+                    />
+                    <ProtectedRouteIsAuth
+                        exact path="/signin"
+                        component={Login}
+                        onLogin={onLogin}
+                        error={error}
+                        isAuth={isAuth}
+                        isLoading={isLoading}
+                    />
                     <ProtectedRoute
                         exact path="/movies"
                         component={Movies}
@@ -221,10 +263,10 @@ function App() {
                         openBurger={openBurger} 
                         onLogout={onLogout} 
                         handleUpdateUser={handleUpdateUser} 
-                        loggedIn={loggedIn} 
                         error={error} 
                         response={response}
                         isAuth={isAuth}
+                        isLoading={isLoading}
                     />
                     <Route exact path="*">
                         <NotFoundError />

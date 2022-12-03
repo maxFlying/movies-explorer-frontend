@@ -3,12 +3,15 @@
     border-bottom: 1px solid #E8E8E8;
     margin: 0 70px 10px 70px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .search__form {
     margin-top: 80px;
     display: flex;
     gap: 10px;
+    
 }
 
 .search__form-string {
@@ -46,10 +49,20 @@
 }
 
 .switch {
-    margin-top: 30px;
     display: flex;
     gap: 12px;
     justify-content: center;
+}
+
+.searh__error {
+    height: 20px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0px;
+    text-align: center;
+    color: #FF004C;
+    padding-top: 10px;
 }
   
 input[type="checkbox"] {
@@ -117,7 +130,7 @@ input[type="checkbox"]:hover {
     }
 
     .switch {
-        margin-top: 44px;
+        margin-top: 14px;
         gap: 13px;
     }
 

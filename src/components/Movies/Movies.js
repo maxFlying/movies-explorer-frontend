@@ -4,67 +4,75 @@ import Header from '../Header/Header';
 import './Movies.css';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import SearchForm from './SearchForm/SearchForm';
-import moviesApi from '../../utils/MoviesApi';
 import Preloader from './Preloader/Preloader';
+import moviesApi from '../../utils/MoviesApi'
 
 function Movies(props) {
-    const [searchValue, setSearchValue] = React.useState({
-        nameRU: '',
-    });
-    const [isCheckbox, setIsCheckbox] = React.useState(false);
-    const [filteredMovies, setFilteredMovies] = React.useState([]);
-    const [searchInfo, setSearchInfo] = React.useState('');
-    const [isLoading, setIsLoading] = React.useState(false);
-    
     const storageAllMovies = JSON.parse(localStorage.getItem('allMovies') ?? '[]');
-    const storageFilteredMovies = JSON.parse(localStorage.getItem('filteredMovies')?? '[]');
-    const storageFilteredShortMovies = JSON.parse(localStorage.getItem('filteredShortMovie')?? '[]');
-    
-    const getAllMovies = () => {
-        setIsLoading(true)
-        moviesApi
-        .getMovies()
-        .then((allMovies) => {
-            localStorage.setItem('allMovies', JSON.stringify(allMovies));
-        })
-        .catch((err) => {
-            console.log(err);
-            setSearchInfo('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
-        })
-        .finally(() => {
-            setIsLoading(false)
-        })
-    }
+    const storageCheckboxStatus = JSON.parse(localStorage.getItem('checkbox'));
+
+    const [isCheckbox, setIsCheckbox] = React.useState(storageCheckboxStatus);
+    const [filteredMovies, setFilteredMovies] = React.useState([]);
+    const [searchValue, setSearchValue] = React.useState('')
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [searchInfo, setSearchInfo] = React.useState('');
     
     const searchMovie = (value) => {
-        setSearchValue(value); 
+        if(storageAllMovies.length === 0) {
+            setIsLoading(true)
+            moviesApi
+            .getMovies()
+            .then((allMovies) => {
+                localStorage.setItem('allMovies', JSON.stringify(allMovies));
+                localStorage.setItem('inputValue', value);
+                setSearchValue(value); 
+            })
+            .catch((err) => {
+                console.log(err);
+                setSearchInfo('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+            })
+            .finally(() => {
+                setIsLoading(false);
+            })
+        } else {
+            setSearchValue(value); 
+            localStorage.setItem('inputValue', value);
+        }
+    }
+        
+    React.useEffect(() => {
+        const storageAllMovies = JSON.parse(localStorage.getItem('allMovies') ?? '[]');
+        const storageInputValue = localStorage.getItem('inputValue')
         const filter = storageAllMovies.filter((item) => {
-            return item.nameRU.toLowerCase().includes(searchValue.nameRU.toLowerCase());
+            return item.nameRU.toLowerCase().includes(storageInputValue.toLowerCase());
         })
         localStorage.setItem('filteredMovies', JSON.stringify(filter));
         const storageFilteredMovies = JSON.parse(localStorage.getItem('filteredMovies'));
         const filterShortMovie = storageFilteredMovies.filter((item) => item.duration < 40);
         localStorage.setItem('filteredShortMovie', JSON.stringify(filterShortMovie))
-        if(!isCheckbox) {
+        const storageFilteredShortMovies = JSON.parse(localStorage.getItem('filteredShortMovie'));
+        
+        if(isCheckbox) {
+            localStorage.setItem('checkbox', true);
             setFilteredMovies(storageFilteredShortMovies);
         } else{
             setFilteredMovies(storageFilteredMovies)
+            localStorage.setItem('checkbox', false);
         }
-    }
+
+        if(filteredMovies.length === 0) {
+            setSearchInfo('Ничего не найдено')
+        } else {
+            setSearchInfo('')
+        }
+
+    }, [filteredMovies.length, isCheckbox, searchValue])
 
     React.useEffect(() => {
-        if(storageFilteredMovies.length === 0) {
-            setSearchInfo('Ничего не найдено')
-        } else {
+        if(storageAllMovies.length === 0) {
             setSearchInfo('')
         }
-
-        if(storageFilteredShortMovies.length === 0) {
-            setSearchInfo('Ничего не найдено')
-        } else {
-            setSearchInfo('')
-        }
-    }, [storageFilteredMovies, storageFilteredShortMovies]);
+    }, [storageAllMovies]);
 
     return (
         <>
@@ -73,9 +81,6 @@ function Movies(props) {
                 <SearchForm searchMovie={searchMovie} 
                 isCheckbox={isCheckbox} 
                 setIsCheckbox={setIsCheckbox}
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-                getAllMovies={getAllMovies}
                 />
                 {isLoading ? <Preloader/> : <MoviesCardList filteredMovies={filteredMovies}
                 toggleCardStatus={props.toggleCardStatus}
