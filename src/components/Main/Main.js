@@ -9,10 +9,19 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 function Main(props) {
-    const HeaderBackground = 'header_is-dark'
+    const headerStyle = () => {
+      if(props.loggedIn) {
+        return ''
+      } else {
+        return 'header_is-dark'
+      }
+    };
+    
+    const HeaderBackground = headerStyle();
+
     return (
-      <page>
-        <Header HeaderBackground={HeaderBackground} />
+      <>
+        <Header HeaderBackground={HeaderBackground} loggedIn={props.loggedIn}/>
         <main>
           <Promo />
           <NavTab />
@@ -22,7 +31,7 @@ function Main(props) {
           <Portfolio />
         </main>
         <Footer/>
-      </page>
+      </>
     );
   }
   

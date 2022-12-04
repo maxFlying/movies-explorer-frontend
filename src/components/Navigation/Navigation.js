@@ -1,18 +1,20 @@
 import React from 'react';
-import { Link, NavLink, Route, Switch } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Navigation.css';
 import AccountLogo from '../../images/account-icon.svg'
 
 function Navigation(prors) {
-    return (
-        <Switch>
-            <Route exact path='/'>
-                <nav className='navigation__auth'>
-                    <Link to='/signup' className='navigation__register'>Регистрация</Link>
-                    <Link to='signin' className='navigation__login'>Войти</Link>
-                </nav>
-            </Route>
-            <Route path='/'>
+
+    if(!prors.loggedIn) {
+        return (
+            <nav className='navigation__auth'>
+                <Link to='/signup' className='navigation__register'>Регистрация</Link>
+                <Link to='signin' className='navigation__login'>Войти</Link>
+            </nav>
+        )
+    } else {
+        return (
+            <>
                 <div className='navigation'>
                     <nav className='navigation__movie'>
                         <NavLink to='/movies' className='navigation__movie-link' activeClassName='navigation__link_is-active'>Фильмы</NavLink>
@@ -23,9 +25,9 @@ function Navigation(prors) {
                     </nav>
                 </div>
                 <button onClick={prors.openBurger} className='navigation__burger'></button>
-            </Route>
-        </Switch>
-    );
+            </>
+        )
+    }
 }
   
 export default Navigation;
