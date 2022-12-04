@@ -3,7 +3,7 @@ import './SearchForm.css';
 import { Switch, Route } from 'react-router-dom';
 
 
-function SearchForm({ searchMovie, isCheckbox, setIsCheckbox, searchUserMovie }) {
+function SearchForm({ searchMovie, isCheckbox, setIsCheckbox, searchUserMovie, isLoading}) {
 
     const storageInputValue = localStorage.getItem('inputValue');
 
@@ -53,8 +53,8 @@ function SearchForm({ searchMovie, isCheckbox, setIsCheckbox, searchUserMovie })
                 <form className='search' onSubmit={handleSubmit} noValidate>
                     <div className='search__form'>
                         <input className='search__form-string' placeholder='Фильм' type='text' name='nameRU'
-                        required value={searchValue || ''} onChange={handleChangeSearch}></input>
-                        <button className='search__form-submit' type='submit'>Найти</button>
+                        required value={searchValue || ''} onChange={handleChangeSearch} disabled={isLoading}></input>
+                        <button className='search__form-submit' type='submit' disabled={isLoading}>Найти</button>
                     </div>
                     <span className='searh__error'>{inputError}</span>
                     <div className='switch'>

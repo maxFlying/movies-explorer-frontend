@@ -68,7 +68,7 @@ function App() {
 
     const checKToken = () => {
         if (!isAuth) {
-            history.push('/')
+            history.push('/');
             return;
         }
 
@@ -80,13 +80,13 @@ function App() {
         })
         .catch((err) => {
             localStorage.removeItem('isAuth');
-            history.push('/')
             localStorage.removeItem('jwt');  
             localStorage.removeItem('checkbox');
             localStorage.removeItem('allMovies');
             localStorage.removeItem('filteredMovies');
             localStorage.removeItem('filteredShortMovie');
             localStorage.removeItem('inputValue');
+            history.push('/')
             console.log(err);
         })
     }
@@ -182,14 +182,14 @@ function App() {
     };
 
     const handleMovieDelete = (movie) => {
-      mainApi
-        .deleteUserMovie(movie._id)
-        .then(() => {
-          setUserMovies((state) => state.filter((c) => c.movieId !== movie.movieId));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        mainApi
+            .deleteUserMovie(movie._id)
+            .then(() => {
+                setUserMovies((state) => state.filter((c) => c.movieId !== movie.movieId));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     const toggleCardStatus = (movie) => {
@@ -206,13 +206,13 @@ function App() {
         const savedMovie = userMovies.filter((i) => i.movieId === movie.id)
     
         mainApi
-        .deleteUserMovie((savedMovie)[0]._id)
-        .then(() => {
-        setUserMovies((state) => state.filter((c) => c.movieId !== movie.id));
-        })
-        .catch((err) => {
-        console.log(err);
-        });
+            .deleteUserMovie((savedMovie)[0]._id)
+            .then(() => {
+                setUserMovies((state) => state.filter((c) => c.movieId !== movie.id));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
 

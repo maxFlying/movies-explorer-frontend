@@ -2,13 +2,13 @@ import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 import { Switch, Route } from 'react-router-dom';
-import { desktopScreen,
-    tabletScreen,
-    desktopQuantityMovies,
-    tabletQuantityMovies,
-    mobileQuantityMovies,
-    desktopQuantityMoreMovies,
-    mobileAndTabletQuantityMoreMovies
+import { DESKTOP_SCREEN,
+    TABLET_SCREEN,
+    DESKTOP_QUAN_MOVIES,
+    TABLET_QUAN_MOVIES,
+    MOBILE_QUAN_MOVIES,
+    DESKTOP_QUAN_MORE_MOVIES,
+    MOBILE_AND_TABLET_QUAN_MORE_MOVIES
 } from '../../../utils/config';
 
 function MoviesCardList(props) {
@@ -31,15 +31,15 @@ function MoviesCardList(props) {
     }, 1000);
 
     const calcQuantityMovies = (width) => {
-        if(width > desktopScreen) {
-            setQuantityMovies(desktopQuantityMovies);
-            setQuantityMoreMovies(desktopQuantityMoreMovies);
-        } else if (width < desktopScreen && width > tabletScreen) {
-            setQuantityMovies(tabletQuantityMovies);
-            setQuantityMoreMovies(mobileAndTabletQuantityMoreMovies);
-        } else if (width < tabletScreen) {
-            setQuantityMovies(mobileQuantityMovies);
-            setQuantityMoreMovies(mobileAndTabletQuantityMoreMovies);
+        if(width > DESKTOP_SCREEN) {
+            setQuantityMovies(DESKTOP_QUAN_MOVIES);
+            setQuantityMoreMovies(DESKTOP_QUAN_MORE_MOVIES);
+        } else if (width < DESKTOP_SCREEN && width > TABLET_SCREEN) {
+            setQuantityMovies(TABLET_QUAN_MOVIES);
+            setQuantityMoreMovies(MOBILE_AND_TABLET_QUAN_MORE_MOVIES);
+        } else if (width < TABLET_SCREEN) {
+            setQuantityMovies(MOBILE_QUAN_MOVIES);
+            setQuantityMoreMovies(MOBILE_AND_TABLET_QUAN_MORE_MOVIES);
         }
     }
 

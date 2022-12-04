@@ -31,6 +31,7 @@
     box-sizing: border-box;
 }
 
+
 .search__form-submit {
     padding: 0;
     border: none;
@@ -41,6 +42,14 @@
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
+}
+
+.search__form-submit:disabled {
+    background-color: #F9F9F9;
+}
+
+.search__form-submit:disabled:hover {
+    cursor: default;
 }
 
 .search__form-submit:hover {

@@ -81,6 +81,7 @@ function Movies(props) {
                 <SearchForm searchMovie={searchMovie} 
                 isCheckbox={isCheckbox} 
                 setIsCheckbox={setIsCheckbox}
+                isLoading={isLoading}
                 />
                 {isLoading ? <Preloader/> : <MoviesCardList filteredMovies={filteredMovies}
                 toggleCardStatus={props.toggleCardStatus}
