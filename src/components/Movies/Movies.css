@@ -18,6 +18,10 @@
     text-align: center;
 }
 
+.movies__button-more_is-unactive {
+    display: none;
+}
+
 .movies__button-more:hover {
     cursor: pointer;
     opacity: 0.8;

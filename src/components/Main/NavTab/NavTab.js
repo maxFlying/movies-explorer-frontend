@@ -5,9 +5,9 @@ function NavTab() {
     return (
         <section className="nav-tab">
             <ul className="nav-tab__list">
-                <li className="nav-tab__link">О проекте</li>
-                <li className="nav-tab__link">Технологии</li>
-                <li className="nav-tab__link">Студент</li>
+                <a className="nav-tab__link" href="#project">О проекте</a>
+                <a className="nav-tab__link" href="#techs">Технологии</a>
+                <a className="nav-tab__link" href="#student">Студент</a>
             </ul>
         </section>
     );
