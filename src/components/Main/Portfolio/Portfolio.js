@@ -16,7 +16,7 @@ function Portfolio() {
                     <img className='portfolio-image' alt='img' src={PortfolioImage}/>
                 </li>
                 <li className='portfolio-list-item'>
-                    <a className='portfolio-link' href='https://maxflying.students.nomoredomains.sbs/sign-in' target={'_blank'} rel={'noreferrer'}>Одностраничное приложение</a>
+                    <a className='portfolio-link' href='https://github.com/maxFlying/react-mesto-api-full' target={'_blank'} rel={'noreferrer'}>Одностраничное приложение</a>
                     <img className='portfolio-image' alt='img' src={PortfolioImage}/>
                 </li>   
             </ul>
